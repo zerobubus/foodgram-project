@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Список покупок</title>
+    <link rel="stylesheet" href="{% static 'pages/shopList.css' %}">
+</head>
+<body class="body">
+    <header class="header">
+        {% include 'includes/nav.html' %}
+      </header>
+<main class="main container">
+    <div class="main__header">
+        <h1 class="main__title">Список покупок</h1>
+    </div>
+    <div class="card-list card-list_column">
+        <ul class="shopping-list">
+            {% for purchase in purchases%}
+            <li class="shopping-list__item" data-id={{purchase.recipe.id}}>
+                <div class="recipe recipe_reverse">
+                    {% load thumbnail %}
+                    {% thumbnail purchase.recipe.image "500x500" crop="center" upscale=True as im %}
+                    <img src="{{ im.url }}" alt="какой-то текст" class="recipe__image recipe__image_big">
+                    {% endthumbnail %}
+                    <h3 class="recipe__title">{{ purchase.recipe.name }}</h3>
+                    <p class="recipe__text"><span class="icon-time"></span> {{ purchase.recipe.time }} мин.</p>
+                </div>
+                <a href="#" class="shopping-list__button link">Удалить</a>
+            </li>
+            
+            {% endfor %}    
+        </ul>
+        <a href="{% url 'download' %}" ><button class="button button_style_blue">Скачать список</button></a>
+
+
+    </div>
+</main>
+<footer class="footer">
+    <div class="footer__container container">
+        <a href="#" class="footer__brand link">Продуктовый помощник</a>
+        <ul class="footer__items">
+            <li class="footer__item"><a href="#" class="footer__link link">Об авторе </a></li>
+            <li class="footer__item"><a href="#" class="footer__link link">Технологии</a></li>
+        </ul>
+    </div>
+</footer>
+<script src="{% static 'js/config/config.js' %}"></script>
+<script src="{% static 'js/components/Header.js' %}"></script>
+<script src="{% static 'js/components/ShopList.js' %}"></script>
+<script src="{% static 'js/api/Api.js' %}"></script> 
+<script src="{% static 'shopList.js' %}"></script> 
+</body>
+</html>
+
+
+

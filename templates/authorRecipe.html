@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load user_filters %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Рецепты</title>
+    <link rel="stylesheet" href="{% static 'pages/index.css' %}">
+</head>
+<body class="body">
+    <header class="header">
+        {% include 'includes/nav.html' %}
+      </header>
+    
+    <main class="main container">
+        <div class="main__header">
+            <h1 class="main__title">{{profile.get_full_name}}</h1>
+            <ul class="tags">
+                {%for tag in tags%}
+                <li class="tags__item">
+                    {%if tag.title in request.get_full_path%}
+
+                    <a id={{tag.title}} href="{{request.path}}" class="tags__checkbox tags__checkbox_style_{{tag.color}} tags__checkbox_active" ></a>
+                    <span class="tags__label">{{tag.name}}</span>
+                    {%else%}
+                    <a id={{tag.title}} href="{{request.path}}?{{request|tags_add:tag.title}}" class="tags__checkbox tags__checkbox_style_{{tag.color}} tags__checkbox" ></a>
+                    <span class="tags__label">{{tag.name}}</span>
+                    {%endif%}
+                </li>
+                
+                </li>
+                {%endfor%}
+            </ul>
+
+        </div>
+       
+        
+        <div class="author-subscribe" data-author={{profile}}>
+            <p style="padding: 0 0 2em 0;"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></p>
+        </div>
+        
+        <div class="card-list" >
+            {% for post in page%}
+        <div class="card" data-id={{post.id}}>
+            {% load thumbnail %}
+            {% thumbnail post.image "500x500" crop="center" upscale=True as im %}
+            <a href="#" class="link" target="_blank"><img src="{{ im.url }}" alt="Какой-то текст" class="card__image"></a>
+            {% endthumbnail %}
+            <div class="card__body">
+                <a class="card__title link" href="#" target="_blank">{{post.name}}</a>
+                <ul class="card__items">
+                    {% for tag in post.tags.all%}
+                        
+                        <li class="card__item"><span class="badge badge_style_{{tag.color}}">{{tag}}</span></li>
+                        
+                        {% endfor%}
+                </ul>
+                <div class="card__items card__items_column">
+                    <p class="card__text"><span class="icon-time"></span> {{post.time }} мин.</p>
+                    <p class="card__text"><span class="icon-user"></span> <a href="{% url 'profile' post.author.username %}" style="color: black">{{post.author.get_full_name }}</a></p>
+                </div>
+            </div>
+            <div class="card__footer">
+                {%distinct post.purchase.all as items%}
+                {% if not items%}
+                <button class="button button_style_light-blue" name="purchases" data-out ><span class="icon-plus button__icon"></span>Добавить покупки</button>
+                {%else%}
+                <button class="button button_style_light-blue" name="purchases" ><span class="icon-plus button__icon"></span>Убрать из покупок</button>
+                {%endif%}
+                
+                {%distinct post.favorite.all as items%}
+                {% if not items%}
+                <button class="button button_style_none" name="favorites" data-out><span class="icon-favorite icon-favorite_big"></span></button>
+                {%else%}
+                <button class="button button_style_none" name="favorites" ><span class="icon-favorite icon-favorite_active"></span></button>
+                {%endif%}
+                
+            </div>
+            
+        </div>
+        {% endfor %}  
+    </div>
+  
+    
+    {% if page.has_other_pages %}
+    {% include "includes/paginator.html" with items=page paginator=paginator%}
+    {% endif %}
+    </main>
+    <footer class="footer">
+        <div class="footer__container container">
+            <a href="#" class="footer__brand link">Продуктовый помощник</a>
+            <ul class="footer__items">
+                <li class="footer__item"><a href="#" class="footer__link link">Об авторе </a></li>
+                <li class="footer__item"><a href="#" class="footer__link link">Технологии</a></li>
+            </ul>
+        </div>
+    </footer>
+  <script src="{% static 'js/components/MainCards.js' %}"></script> 
+  <script src="{% static 'js/components/Purchases.js' %}"></script>
+  <script src="{% static 'js/components/Favorites.js' %}"></script> 
+  <script src="{% static 'js/components/Subscribe.js' %}"></script> 
+  <script src="{% static 'js/config/config.js' %}"></script>  
+  <script src="{% static 'js/components/AuthorRecipe.js' %}"></script> 
+  <script src="{% static 'js/components/Header.js' %}"></script> 
+
+  <script src="{% static 'js/api/Api.js' %}"></script> 
+  <script src="{% static 'authorRecipe.js' %}"></script> 
+
+</body>
+</html>
+

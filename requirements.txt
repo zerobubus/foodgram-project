@@ -1,0 +1,16 @@
+certifi==2020.12.5
+chardet==4.0.0
+Django==2.2
+django-filter==2.4.0
+djangorestframework==3.12.2
+djangorestframework-simplejwt==4.6.0
+idna==2.10
+Markdown==3.3.3
+Pillow==8.1.0
+PyJWT==2.0.1
+pytz==2020.5
+reportlab==3.5.59
+requests==2.25.1
+sorl-thumbnail==12.7.0
+sqlparse==0.4.1
+urllib3==1.26.3
