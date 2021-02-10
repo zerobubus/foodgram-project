@@ -9,7 +9,7 @@ def addclass(field, css):
 @register.simple_tag(takes_context=True)
 def distinct(context, items):
     
-    user =context['user']
+    user = context['user']
     items = [item for item in items if item.user == user]
     return items
 

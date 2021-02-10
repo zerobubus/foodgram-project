@@ -20,24 +20,24 @@
             <div class="main__header">
                 <h1 class="main__title">Рецепты</h1>
                 <ul class="tags">
-                    {%for tag in tags%}
+                    {% for tag in tags %}
                     <li class="tags__item">
-                        {%if tag.title in request.get_full_path%}
+                        {% if tag.title in request.get_full_path %}
     
                         <a id={{tag.title}} href="{{request.path}}" class="tags__checkbox tags__checkbox_style_{{tag.color}} tags__checkbox_active" ></a>
-                        <span class="tags__label">{{tag.name}}</span>
-                        {%else%}
+                        <span class="tags__label">{{ tag.name }}</span>
+                        {% else %}
                         <a id={{tag.title}} href="{{request.path}}?{{request|tags_add:tag.title}}" class="tags__checkbox tags__checkbox_style_{{tag.color}} tags__checkbox" ></a>
-                        <span class="tags__label">{{tag.name}}</span>
-                        {%endif%}
+                        <span class="tags__label">{{ tag.name }}</span>
+                        {% endif %}
                     </li>
                     
                     </li>
-                    {%endfor%}
+                    {% endfor %}
                 </ul>
             </div>
             <div class="card-list">
-                {% for post in page%}
+                {% for post in page %}
                 
                 <div class="card" data-id={{post.recipe.id}} data-author={{post.recipe.author}}>
                     {% load thumbnail %}
@@ -46,31 +46,31 @@
         {% endthumbnail %}
                     
                     <div class="card__body">
-                        <a class="card__title link" href="{% url 'recipe' post.recipe.author.username post.recipe.id %}" target="_blank">{{post.recipe }}</a>
+                        <a class="card__title link" href="{% url 'recipe' post.recipe.author.username post.recipe.id %}" target="_blank">{{ post.recipe }}</a>
                         <ul class="card__items">
-                            {% for tag in post.recipe.tags.all%}
+                            {% for tag in post.recipe.tags.all %}
                         
-                        <li class="card__item"><span class="badge badge_style_{{tag.color}}">{{tag}}</span></li>
+                        <li class="card__item"><span class="badge badge_style_{{tag.color}}">{{ tag }}</span></li>
                         
-                        {% endfor%}
+                        {% endfor %}
                         </ul>
                         <div class="card__items card__items_column">
                     
                             <p class="card__text"><span class="icon-time"></span> {{ post.recipe.time }} мин.</p>
                             {% if post.recipe.author.get_full_name %}
-                            <p class="card__text"><span class="icon-user"></span> <a href="{% url 'profile' post.recipe.author.username %}" style="color: black">{{post.recipe.author.get_full_name }}</a></p>
+                            <p class="card__text"><span class="icon-user"></span> <a href="{% url 'profile' post.recipe.author.username %}" style="color: black">{{ post.recipe.author.get_full_name }}</a></p>
                             {% else %}
-                            <p class="card__text"><span class="icon-user"></span> <a href="{% url 'profile' post.recipe.author.username %}" style="color: black">{{post.recipe.author.username}}</a></p>
+                            <p class="card__text"><span class="icon-user"></span> <a href="{% url 'profile' post.recipe.author.username %}" style="color: black">{{ post.recipe.author.username }}</a></p>
                             {% endif %}
                         </div>
                     </div>
                     <div class="card__footer">
-                        {%distinct post.recipe.purchase.all as items%}
-                        {% if not items%}
+                        {% distinct post.recipe.purchase.all as items %}
+                        {% if not items %}
                         <button class="button button_style_light-blue" name="purchases" data-out ><span class="icon-plus button__icon"></span>Добавить покупки</button>
-                        {%else%}
+                        {% else %}
                         <button class="button button_style_light-blue" name="purchases" ><span class="icon-plus button__icon"></span>Убрать из покупок</button>
-                        {%endif%}
+                        {% endif %}
                         
                         <button class="button button_style_none" name="favorites" ><span class="icon-favorite icon-favorite_active"></span></button>
     
@@ -79,17 +79,11 @@
                 {% endfor %}   
             </div>
             {% if page.has_other_pages %}
-            {% include "includes/paginator.html" with items=page paginator=paginator%}
+            {% include "includes/paginator.html" with items=page paginator=paginator %}
         {% endif %}
         </main> 
         <footer class="footer">
-            <div class="footer__container container">
-                <a href="#" class="footer__brand link">Продуктовый помощник</a>
-                <ul class="footer__items">
-                    <li class="footer__item"><a href="#" class="footer__link link">Об авторе </a></li>
-                    <li class="footer__item"><a href="#" class="footer__link link">Технологии</a></li>
-                </ul>
-            </div>
+            {% include 'includes/footer.html' %}  
         </footer>
 <script src="{% static 'js/components/MainCards.js' %}"></script> 
 

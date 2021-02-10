@@ -19,15 +19,15 @@
             <h1 class="main__title">Мои подписки</h1>
         </div>
         <div class="card-list">
-            {% for post in page%}
+            {% for post in page %}
            
             <div class="card-user" data-author={{post}}>
             <div class="card-user__header">
-                <h2 class="card-user__title">{{post}}</h2>
+                <h2 class="card-user__title">{{ post }}</h2>
             </div>
             <div class="card-user__body">
                 <ul class="card-user__items">
-                    {%for recipe in post.authors.all|dist%}
+                    {% for recipe in post.authors.all|dist %}
                     
                     <li class="card-user__item">
                         <div class="recipe">
@@ -35,18 +35,18 @@
                     {% thumbnail recipe.image "500x500" crop="center" upscale=True as im %}
                             <img src="{{ im.url }}"  alt="какой-то-текст" class="recipe__image">
                             {% endthumbnail %}
-                            <h3 class="recipe__title">{{recipe.name}}</h3>
-                            <p class="recipe__text"><span class="icon-time"></span> {{recipe.time}} мин.</p>
+                            <h3 class="recipe__title">{{ recipe.name }}</h3>
+                            <p class="recipe__text"><span class="icon-time"></span> {{ recipe.time }} мин.</p>
                         </div>
                     </li>
-                    {%endfor%}
+                    {% endfor %}
 
-                    {%dist_tag post.authors.all as len_items%}
-                    {%if len_items > 0%}
+                    {% dist_tag post.authors.all as len_items %}
+                    {% if len_items > 0 %}
                     <li class="card-user__item">
-                        <a href="#" class="card-user__link link">Еще {{len_items}} рецептов...</a>
+                        <a href="{% url 'profile' post %}" class="card-user__link link">Еще {{ len_items }} рецептов...</a>
                     </li>
-                    {%endif%}
+                    {% endif %}
                   
                    
                 </ul>
@@ -61,17 +61,11 @@
         </div>
       
         {% if page.has_other_pages %}
-        {% include "includes/paginator.html" with items=page paginator=paginator%}
+        {% include "includes/paginator.html" with items=page paginator=paginator %}
     {% endif %}
     </main>
 <footer class="footer">
-    <div class="footer__container container">
-        <a href="#" class="footer__brand link">Продуктовый помощник</a>
-        <ul class="footer__items">
-            <li class="footer__item"><a href="#" class="footer__link link">Об авторе </a></li>
-            <li class="footer__item"><a href="#" class="footer__link link">Технологии</a></li>
-        </ul>
-    </div>
+    {% include 'includes/footer.html' %}  
 </footer>
 <script src="{% static 'js/config/config.js' %}"></script>  
 <script src="{% static 'js/components/MainCards.js' %}"></script> 

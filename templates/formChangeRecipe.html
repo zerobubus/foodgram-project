@@ -66,7 +66,7 @@
                         <div class="form__field-group-ingredientes-container">
                             {% for amount in amounts %}
                                 <div class="form__field-item-ingredient" id="ing_{{ forloop.counter }}">
-                                    <span> {{amount.ingredient}} {{amount}}{{amount.ingredient.dimension}}</span>
+                                    <span> {{ amount.ingredient }} {{ amount }} {{ amount.ingredient.dimension }}</span>
                                     <span class="form__field-item-delete"></span>
                                     <input id="nameIngredient_{{ forloop.counter }}" name="nameIngredient_{{ forloop.counter }}" type="hidden" value="{{ingredient.ingredient.title}}">
                                     <input id="valueIngredient_{{ forloop.counter }}" name="valueIngredient_{{ forloop.counter }}" type="hidden" value="{{ingredient.quantity}}">
@@ -110,13 +110,7 @@
         </div>
 </main>
 <footer class="footer">
-    <div class="footer__container container">
-        <a href="#" class="footer__brand link">Продуктовый помощник</a>
-        <ul class="footer__items">
-            <li class="footer__item"><a href="#" class="footer__link link">Об авторе </a></li>
-            <li class="footer__item"><a href="#" class="footer__link link">Технологии</a></li>
-        </ul>
-    </div>
+    {% include 'includes/footer.html' %}  
 </footer>
 <script src="{% static 'js/config/config.js' %}"></script>  
 <script src="{% static 'js/components/Header.js' %}"></script> 

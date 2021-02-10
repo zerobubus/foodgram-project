@@ -4,7 +4,7 @@ class Api {
         this.apiUrl =  apiUrl;
     }
   getPurchases () {
-    return fetch(`/purchases`, {
+    return fetch(`/purchases/`, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -17,7 +17,7 @@ class Api {
       })
   }
   addPurchases (id) {
-    return fetch(`/purchases`, {
+    return fetch(`/purchases/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ class Api {
       })
   }
   removePurchases (id){
-    return fetch(`/purchases/${id}`, {
+    return fetch(`/purchases/${id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ class Api {
       })
   }
   addSubscriptions(id) {
-    return fetch(`/subscriptions`, {
+    return fetch(`/subscriptions/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ class Api {
       })
   }
   removeSubscriptions (id) {
-    return fetch(`/subscriptions/${id}`, {
+    return fetch(`/subscriptions/${id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -79,10 +79,10 @@ class Api {
       })
   }
   addFavorites (id)  {
-    return fetch(`/favorites`, {
+    return fetch(`/favorites/`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'No Content'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         id: id
@@ -96,21 +96,21 @@ class Api {
         })
   }
   removeFavorites (id) {
-    return fetch(`/favorites/${id}`, {
+    return fetch(`/favorites/${id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       }
     })
-        .then( 'errors' => {
-            if('errors') {
-                return 'errors'
+        .then( e => {
+            if(e.ok) {
+                return e.json()
             }
             return Promise.reject(e.statusText)
         })
   }
     getIngredients  (text)  {
-        return fetch(`/ingredients?query=${text}`, {
+        return fetch(`/ingredients/?query=${text}`, {
             headers: {
                 'Content-Type': 'application/json'
             }
