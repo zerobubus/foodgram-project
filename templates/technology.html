@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+    {% load static %}
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Французские тосты</title>
+    <link rel="stylesheet" href="{% static 'pages/single.css' %}">
+</head>
+<body class="body">
+<header class="header">
+    {% include 'includes/nav.html' %}
+</header>
+    <main class="main container">
+      <div class="single-card">
+        <img class="single-card__image" src="{% static 'images/django.jpg' %}" />
+        <div class="single-card__info" >
+          <div class="single-card__section">
+
+            <h3 class="single-card__section-title">Используемые технологии</h3>
+            <p class=" single-card__section-text"> _________________________________________________________________________________</p>
+            
+            <p class=" single-card__section-text">Для создания этого сайта были использованы следующие программы:</p>
+            <p class=" single-card__section-text">PYTHON</p>
+            <p class=" single-card__section-text">DJANGO</p>
+            <p class=" single-card__section-text">DOCKER</p>
+            <p class=" single-card__section-text">LINUX</p>
+            <p class=" single-card__section-text"> __________________________________________________________________________________</p>
+        </div>
+
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+        {% include 'includes/footer.html' %}  
+    </footer>
+<script src="{% static 'js/components/Purchases.js' %}"></script>
+<script src="{% static 'js/components/Favorites.js' %}"></script> 
+<script src="{% static 'js/components/Subscribe.js' %}"></script>  
+<script src="{% static 'js/config/config.js' %}"></script>  
+
+<script src="{% static 'js/components/MainCards.js' %}"></script>  
+<script src="{% static 'js/components/SingleCard.js' %}"></script>  
+<script src="{% static 'js/components/Header.js' %}"></script>  
+
+<script src="{% static 'js/api/Api.js' %}"></script>  
+<script src="{% static 'singlePage.js' %}"></script> 
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'pages/single.css' %}">
+{% endblock %}
+{% block content %}
+{% load user_filters %}
+
+    <main class="main container">
+     
+        <div class="single-card__info" >
+          <div class="single-card__section">
+
+            <h3 class="single-card__section-title">О сайте</h3>
+            <p class=" single-card__section-text"> __________________________________________________________________________________________________________________________________________</p>
+            
+            <p class=" single-card__section-text">Добро пожаловать на сайт! </p>
+            <p class=" single-card__section-text">Здесь Вы можете делиться своими рецептами и находить новые.</p>
+            <p class=" single-card__section-text">Рецепты, короторые Вам понравились , можете добавить в избранное(нажать на звездочку)</p>
+            <p class=" single-card__section-text">Также можете подписаться на авторов и следить за новыми рецептами, которые они опубликуют. </p>
+            <p class=" single-card__section-text">Можно добавить рецепты в список покупок и потом сформировать список с ингредиентами для похода в магазин(нажать скачать список) </p>
+            <p class=" single-card__section-text"> ___________________________________________________________________________________________________________________________________________</p>
+        </div>
+
+        </div>
+     
+    </main>
+    {% endblock %}
