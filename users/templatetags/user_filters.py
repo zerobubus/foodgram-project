@@ -55,10 +55,3 @@ def tags_delete(request, tag):
         elif len(list_tag[0])==1:
             request = "tag=" +str(list_tag[0][0]) 
             return request
-
-   
-    
-    
-    
-    
-    

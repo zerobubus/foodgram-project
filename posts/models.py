@@ -93,9 +93,9 @@ class Favorite(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint(
-            fields= ["user", "recipe"], name='favorite_unique')]
+            fields= ["user", "recipe"], name="favorite_unique")]
         verbose_name = "Избранное"
-        ordering = ('-created',)
+        ordering = ("-created",)
 
 
 class Purchase(models.Model): 
@@ -113,9 +113,9 @@ class Purchase(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint(
-            fields= ["user", "recipe"], name='purchase_unique')]
+            fields= ["user", "recipe"], name="purchase_unique")]
         verbose_name = "Покупки"
-        ordering = ('-created',)
+        ordering = ("-created",)
 
 
 class Follow(models.Model): 
@@ -137,7 +137,7 @@ class Follow(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint(
-            fields= ["user", "author"], name='follow_unique')]
+            fields= ["user", "author"], name="follow_unique")]
         verbose_name = "Подписки"
-        ordering = ('-created',)
+        ordering = ("-created",)
         

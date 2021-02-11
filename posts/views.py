@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views.generic.base import TemplateView
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -15,6 +16,7 @@ from .models import (Favorite, Follow, Ingredient, Number, Purchase, Recipe,
                      Tag, User)
 from .serializers import (FavoriteSerializer, FollowSerializer,
                           IngredientSerializer, PurchaseSerializer)
+from django.db.models import F
 
 
 def index(request):
@@ -116,7 +118,7 @@ def recipe_edit(request, username, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id, author__username=username)
     amounts = Number.objects.filter(recipe=recipe)
     if request.user != recipe.author:
-        return redirect(f"/{recipe.author}/{recipe_id}")
+        return redirect(reverse('recipe', args=(username ,recipe_id)))
     form = RecipeForm(
         request.POST or None, files=request.FILES or None, instance=recipe)
     if not form.is_valid():
@@ -143,7 +145,7 @@ def recipe_edit(request, username, recipe_id):
         ingredient = get_object_or_404(Ingredient, title=request_dict[name])
         number_create = Number.objects.create(
             recipe=recipe, ingredient=ingredient, amount=request_dict[value])   
-    return redirect(f"/{recipe.author}/{recipe_id}/")
+    return redirect(reverse('recipe', args=(username ,recipe_id)))
 
 
 @api_view( ["POST"]) 
@@ -288,15 +290,11 @@ def purchases_download(request):
 def ingredients(request):
     
     title = request.GET.get("query")
-    ingredients = Ingredient.objects.filter(title__istartswith=title)
-    results = []
-    for ingredient in ingredients:
-        dic = {}
-        dic["title"]= ingredient.title
-        dic["dimension"]= ingredient.dimension
-        results.append(dic)
-       
-    return JsonResponse(results, safe=False)
+    result = list(Ingredient.objects.filter(
+        title__istartswith=title).values('title', 'dimension')
+        )
+    return JsonResponse(result, safe=False)
+
 
 
 @api_view( ["POST"]) 
