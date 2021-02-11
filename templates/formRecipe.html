@@ -1,19 +1,11 @@
-<!doctype html>
-<html lang="en">
-    {% load static %}
-    {% load user_filters %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Создание рецепта</title>
-    <link rel="stylesheet" href="{% static 'pages/form.css' %}">
-</head>
-<body class="body">
-    <header class="header">
-        {% include 'includes/nav.html' %}
-      </header>
+{% extends "base.html" %} 
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'pages/form.css' %}">
+{% endblock %}
+{% block content %}
+{% load user_filters %}
+
       <main class="main container">
         <div class="main__header">
             <h1 class="main__title">Создание рецепта</h1>
@@ -99,13 +91,13 @@
         </div>
     
 </main>
-<footer class="footer">
-    {% include 'includes/footer.html' %}  
-</footer>
+{% endblock %}
+
+{% block style %}
+
 <script src="{% static 'js/config/config.js' %}"></script>  
 <script src="{% static 'js/components/Header.js' %}"></script> 
 <script src="{% static 'js/utils/debouncing.js' %}"></script> 
 <script src="{% static 'js/api/Api.js' %}"></script>  
 <script src="{% static 'formRecipe.js' %}"></script> 
-</body>
-</html>
+{% endblock %}

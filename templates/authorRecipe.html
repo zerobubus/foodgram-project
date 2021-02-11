@@ -1,39 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-    {% load static %}
-    {% load user_filters %}
-    {% csrf_token %}
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Рецепты</title>
-    <link rel="stylesheet" href="{% static 'pages/index.css' %}">
-</head>
-<body class="body">
-    <header class="header">
-        {% include 'includes/nav.html' %}
-      </header>
-    
+{% extends "base.html" %} 
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'pages/index.css' %}">
+{% endblock %}
+{% block content %}
+{% load user_filters %}
     <main class="main container">
         <div class="main__header">
             <h1 class="main__title">{{ profile.get_full_name }}</h1>
             <ul class="tags">
-                {% for tag in tags %}
-                <li class="tags__item">
-                    {% if tag.title in request.get_full_path %}
-
-                    <a id={{tag.title}} href="{{request.path}}" class="tags__checkbox tags__checkbox_style_{{tag.color}} tags__checkbox_active" ></a>
-                    <span class="tags__label">{{ tag.name }}</span>
-                    {% else %}
-                    <a id={{tag.title}} href="{{request.path}}?{{request|tags_add:tag.title}}" class="tags__checkbox tags__checkbox_style_{{tag.color}} tags__checkbox" ></a>
-                    <span class="tags__label">{{ tag.name }}</span>
-                    {% endif %}
-                </li>
-                
-                </li>
-                {% endfor %}
+                {% include 'includes/tags.html' with tags=tags %}
             </ul>
 
         </div>
@@ -94,9 +70,10 @@
     {% include "includes/paginator.html" with items=page paginator=paginator %}
     {% endif %}
     </main>
-    <footer class="footer">
-        {% include 'includes/footer.html' %}  
-    </footer>
+    {% endblock %}
+
+    {% block style %}
+
   <script src="{% static 'js/components/MainCards.js' %}"></script> 
   <script src="{% static 'js/components/Purchases.js' %}"></script>
   <script src="{% static 'js/components/Favorites.js' %}"></script> 
@@ -108,5 +85,5 @@
   <script src="{% static 'js/api/Api.js' %}"></script> 
   <script src="{% static 'authorRecipe.js' %}"></script> 
 
-</body>
-</html>
+ {% endblock %}
+   
