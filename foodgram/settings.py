@@ -70,11 +70,16 @@ WSGI_APPLICATION = "foodgram.wsgi.application"
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
-}
+} 
+
 
 
 # Password validation
@@ -130,12 +135,6 @@ APPEND_SLASH = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'karta.malov@gmail.com'
-EMAIL_HOST_PASSWORD = 'riseagainst342128'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'karta.malov@gmail.com'
 STATIC_URL = "/static/"
 LOGIN_URL = "/auth/login/"
 LOGIN_REDIRECT_URL = "index" 
