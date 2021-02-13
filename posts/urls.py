@@ -4,7 +4,9 @@ from . import views
 
 
 urlpatterns = [ 
-    path("", views.index, name="index"), 
+    path("", views.index, name="index"),
+    path("404/", views.page_not_found, name="page_not_found"),
+    path("500/", views.server_error, name="server_error"), 
     path("profile/<str:username>/", views.profile, name="profile"), 
     path("new/", views.new_recipe, name="new_recipe"), 
     path(

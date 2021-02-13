@@ -130,6 +130,12 @@ APPEND_SLASH = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'karta.malov@gmail.com'
+EMAIL_HOST_PASSWORD = 'riseagainst342128'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'karta.malov@gmail.com'
 STATIC_URL = "/static/"
 LOGIN_URL = "/auth/login/"
 LOGIN_REDIRECT_URL = "index" 

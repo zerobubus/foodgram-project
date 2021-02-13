@@ -12,6 +12,7 @@ class RecipeForm(forms.ModelForm):
         widgets = {
             "tags": forms.CheckboxSelectMultiple(),
             }
+
     
     
 class NumberForm(forms.ModelForm):

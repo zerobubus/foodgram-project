@@ -27,7 +27,7 @@ def index(request):
         tags__title__in=tags).select_related(
             "author").distinct()
     tags = Tag.objects.all()
-    paginator = Paginator(recipe_list, 3)  
+    paginator = Paginator(recipe_list, 9)  
     page_number = request.GET.get("page")  
     page = paginator.get_page(page_number) 
     
@@ -49,7 +49,7 @@ def profile(request, username):
     follow = Follow.objects.filter(
         author__username=username, user__username=request.user)
     tags = Tag.objects.all()
-    paginator = Paginator(recipe_list, 1)  
+    paginator = Paginator(recipe_list, 9)  
     page_number = request.GET.get("page")  
     page = paginator.get_page(page_number)
     
@@ -64,8 +64,27 @@ def profile(request, username):
 
 @login_required
 def new_recipe(request):
-
+    
     form = RecipeForm(request.POST or None, files=request.FILES or None)
+    if request.method == 'POST':
+        ing = [v for k,
+               v in request.POST.items()
+               if k.startswith('nameIngredient_')]
+        form = RecipeForm(request.POST, files=request.FILES or None)
+        if len(ing) == 0:
+            error = 'нужно выбрать хотя бы один ингредиент'
+            return render(request, "formRecipe.html", {'form': form,
+                                                        'error': error,
+                                                        })
+        for ingredient in ing:
+            try:
+                a = Ingredient.objects.get(title=ingredient)
+            except:
+                error = f'{ingredient} - такого ингредиента нет в базе данных'
+                return render(request, "formRecipe.html", {'form': form,
+                                                        'error': error,
+                                                        })
+            
     if not form.is_valid():
         return render(request, "formRecipe.html", {"form": form })      
     recipe = form.save(commit=False)
@@ -79,6 +98,7 @@ def new_recipe(request):
     for number in numbers:
         name = "nameIngredient_" + str(number)
         value ="valueIngredient_" + str(number)
+    
         ingredient = get_object_or_404(Ingredient, title=request_dict[name])
         number_create = Number.objects.create(
             recipe=recipe, ingredient=ingredient, amount=request_dict[value])      
@@ -185,7 +205,7 @@ def favorites(request):
         user__username=request.user, 
         recipe__tags__title__in=tags).select_related("recipe").distinct()
     tags = Tag.objects.all()
-    paginator = Paginator(favorite, 6)  
+    paginator = Paginator(favorite, 9)  
     page_number = request.GET.get("page")  
     page = paginator.get_page(page_number) 
     
@@ -230,7 +250,7 @@ def follow(request):
 
     follow = User.objects.filter(
         following__user=request.user).prefetch_related("authors").order_by('id')
-    paginator = Paginator(follow, 6)  
+    paginator = Paginator(follow, 9)  
     page_number = request.GET.get("page")  
     page = paginator.get_page(page_number)
 
@@ -339,3 +359,17 @@ class TechnologyPage(TemplateView):
 class BrandPage(TemplateView):
     
     template_name = 'brand.html'
+
+
+def page_not_found(request, exception):
+    
+    return render(
+        request, 
+        "misc/404.html", 
+        {"path": request.path}, 
+        status=404
+    )
+
+
+def server_error(request):
+    return render(request, "misc/500.html", status=500) 
