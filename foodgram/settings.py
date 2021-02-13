@@ -1,5 +1,9 @@
 import os
 
+from dotenv import load_dotenv 
+ 
+load_dotenv() 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -135,7 +139,7 @@ APPEND_SLASH = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-STATIC_URL = "/static/"
+"
 LOGIN_URL = "/auth/login/"
 LOGIN_REDIRECT_URL = "index" 
  
