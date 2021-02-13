@@ -27,7 +27,7 @@ def index(request):
         tags__title__in=tags).select_related(
             "author").distinct()
     tags = Tag.objects.all()
-    paginator = Paginator(recipe_list, 6)  
+    paginator = Paginator(recipe_list, 3)  
     page_number = request.GET.get("page")  
     page = paginator.get_page(page_number) 
     
@@ -49,7 +49,7 @@ def profile(request, username):
     follow = Follow.objects.filter(
         author__username=username, user__username=request.user)
     tags = Tag.objects.all()
-    paginator = Paginator(recipe_list, 6)  
+    paginator = Paginator(recipe_list, 1)  
     page_number = request.GET.get("page")  
     page = paginator.get_page(page_number)
     
@@ -191,7 +191,7 @@ def favorites(request):
     
     return render(
         request,
-        "favorite.html", {"favorite": favorite, "tags":tags, 
+        "favourite.html", {"favorite": favorite, "tags":tags, 
         "page": page, "paginator": paginator}
     )
 
@@ -229,7 +229,7 @@ def api_follow_delete(request, id):
 def follow(request):
 
     follow = User.objects.filter(
-        following__user=request.user).prefetch_related("authors")
+        following__user=request.user).prefetch_related("authors").order_by('id')
     paginator = Paginator(follow, 6)  
     page_number = request.GET.get("page")  
     page = paginator.get_page(page_number)
@@ -240,7 +240,7 @@ def follow(request):
         "page": page, "paginator": paginator}
     ) 
 
-
+  
 @login_required
 def purchases(request):
     

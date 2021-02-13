@@ -1,16 +1,12 @@
-{% load user_filters %}
-
-{% for tag in tags %}
+{% load user_filters %} {% for tag in tags %}
 <li class="tags__item">
-{% if tag.title in request.get_full_path %}
+    {% if tag.title in request.get_full_path %}
 
-<a id={{tag.title}} href="{{request.path}}" class="tags__checkbox tags__checkbox_style_{{tag.color}} tags__checkbox_active" ></a>
-<span class="tags__label">{{ tag.name }}</span>
-{% else %}
-<a id={{tag.title}} href="{{request.path}}?{{request|tags_add:tag.title}}" class="tags__checkbox tags__checkbox_style_{{tag.color}} tags__checkbox" ></a>
-<span class="tags__label">{{ tag.name }}</span>
-{% endif %}
+    <a id={{ tag.title }} href="{{ request.path }}" class="tags__checkbox tags__checkbox_style_{{ tag.color }} tags__checkbox_active"></a>
+    <span class="tags__label">{{ tag.name }}</span> {% else %}
+    <a id={{ tag.title }} href="{{ request.path }}?{{ request|tags_add:tag.title }}" class="tags__checkbox tags__checkbox_style_{{ tag.color }} tags__checkbox"></a>
+    <span class="tags__label">{{ tag.name }}</span> {% endif %}
 </li>
-                
+
 </li>
 {% endfor %}

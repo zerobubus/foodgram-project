@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Войти на сайт</title>
     {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static "favicon.ico" %}">
     <link rel="stylesheet" href="{% static 'pages/form.css' %}">
 </head>
 <body class="body">
@@ -14,12 +15,12 @@
     <nav class="nav">
         <div class="nav__container container">
             <ul class="nav__items list">
-                <li class="nav__item nav__item_disabled"><a href="#" class="nav__link link">Рецепты</a></li>
-                <li class="nav__item nav__item_disabled"><a href="#" class="nav__link link">Список покупок</a></li>
+                <li class="nav__item nav__item_disabled"><a href="{% url 'index' %}" class="nav__link link">Рецепты</a></li>
+        
             </ul>
             <ul class="nav__items list">
-                <li class="nav__item"><a href="#" class="nav__link link">Войти</a></li>
-                <li class="nav__item"><a href="#" class="button button_style_blue">Создать аккаунт</a></li>
+                <li class="nav__item"><a href="{% url 'login' %}" class="nav__link link">Войти</a></li>
+                <li class="nav__item"><a href="{% url 'signup' %}" class="button button_style_blue">Создать аккаунт</a></li>
             </ul>
         </div>
     </nav>
@@ -34,14 +35,14 @@
             <div class="form__group">
                 <label for="id_username" class="form__label">Имя</label>
                 <div class="form__field-group">
-                    <input type="text" name="username" id="id_username" class="form__input">
+                    <input type="text" placeholder="Введите ваш nickname" name="username" id="id_username" class="form__input">
                     <span class="form__error"></span>
                 </div>
             </div>
             <div class="form__group">
                 <label for="id_password" class="form__label">Пароль</label>
                 <div class="form__field-group">
-                    <input type="password" name="password" id="id_password" class="form__input">
+                    <input type="password" placeholder="Введите пароль" name="password" id="id_password" class="form__input">
                     <span class="form__error"></span>
                 </div>
             </div>

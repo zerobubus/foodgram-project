@@ -69,7 +69,7 @@ class Number(models.Model):
         Ingredient, on_delete=models.CASCADE, 
         related_name="numbers", verbose_name="ингредиент"
         )
-    amount = models.IntegerField()
+    amount = models.IntegerField(validators=[MinValueValidator(1)])
 
     def __str__(self):
         return str(self.amount)

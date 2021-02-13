@@ -1,8 +1,8 @@
 .icon-favorite {
     display: block;
     position: relative;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     background-image: url("../../images/star.svg");
     background-size: 100%;
     background-color: transparent;
