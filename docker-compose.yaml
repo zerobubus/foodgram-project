@@ -2,7 +2,8 @@ version: '3.8'
 
 volumes:
   postgres_data:
-  static:
+  staticfiles:
+  media:
 
 services:
   db:
@@ -17,9 +18,10 @@ services:
       
   web:
 
-    image: zerobubus/yamdb_final:latest
+    image: zerobubus/foodgram-project:latest
     volumes:
-      - static:/static
+      - staticfiles:/app/static/
+      - media:/app/media/
     restart: always
     ports:
       - "8000:8000"
@@ -33,7 +35,8 @@ services:
     image: nginx:1.19.6
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - static:/static
+      - staticfiles:/app/static/
+      - media:/app/media/
     ports:
       - "80:80"
     depends_on:
