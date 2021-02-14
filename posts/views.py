@@ -298,10 +298,10 @@ def purchases_download(request):
     p = canvas.Canvas(response)
     pdfmetrics.registerFont(TTFont("Verdana", "Verdana.ttf"))
     p.setFont("Verdana", 16)
-    a = [k + " - " + str(v[0]) + v[1] for k,v in ingr.items() ]
-    p.drawString(200 , 800, "СПИСОК ПОКУПОК")
+    a = [f"•  {str.title(k)} ({v[1]}) - {v[0]} " for k,v in ingr.items() ]
+    p.drawString(200 , 800, "Список покупок")
     for i, item in enumerate(a):
-        p.drawString(230 , 700 + i*20, str(a[i]))
+        p.drawString(50 , 700 + i*25, str(a[i]))
     p.showPage()
     p.save()
     return response

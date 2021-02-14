@@ -31,15 +31,16 @@
 
                     <p class="card__text"><span class="icon-time"></span> {{ post.time }} мин.</p>
 
-                    <p class="card__text"><span class="icon-user"></span> <a href="{% url 'profile' post.author.username %}" style="color: black">{{ post.author.get_full_name }}</a></p>
+                    <p class="card__text"><span class="icon-user"></span> <a href="{% url 'profile' post.author.username %}" style="color: black">{{ post.author}}</a></p>
                 </div>
             </div>
             <div class="card__footer">
-
+                {% if user.is_authenticated %}
                 {% distinct post.purchase.all as items %} {% if not items %}
                 <button class="button button_style_light-blue" name="purchases" data-out><span class="icon-plus button__icon"></span>Добавить покупки</button>
                 {% else %}
                 <button class="button button_style_light-blue" name="purchases"><span class="icon-plus button__icon"></span>Убрать из покупок</button>
+                {% endif %}
                 {% endif %}
 
             </div>

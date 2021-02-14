@@ -13,7 +13,11 @@ class RecipeForm(forms.ModelForm):
             "tags": forms.CheckboxSelectMultiple(),
             }
 
-    
+        error_messages = {
+            'time': {
+                'min_value': 'Время должно быть положительным числом'
+            }
+        }
     
 class NumberForm(forms.ModelForm):
     
@@ -21,4 +25,6 @@ class NumberForm(forms.ModelForm):
         
         model = Number
         fields = ["recipe", "amount", "ingredient"]
+    
+
  

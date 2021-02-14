@@ -1,8 +1,9 @@
+
 {% if not purchase %}
 <button class="button button_style_light-blue" name="purchases" data-out><span class="icon-plus button__icon"></span>Добавить покупки</button>
 {% else %}
 <button class="button button_style_light-blue" name="purchases"><span class="icon-plus button__icon"></span>Убрать из покупок</button>
-{% endif %} {% if not follow %}
+{% endif %} {% if user != author %} {% if not follow %}
 <li class="single-card__item">
     <button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button>
 </li>
@@ -10,4 +11,5 @@
 <li class="single-card__item">
     <button class="button button_style_light-blue button_size_subscribe" name="subscribe">Отписаться от автора</button>
 </li>
+{% endif %}
 {% endif %}

@@ -42,7 +42,7 @@ class Recipe(models.Model):
     
     image = models.ImageField(upload_to="posts/", blank=True, null=True)
     time = models.PositiveIntegerField(
-        verbose_name="время", validators=[MinValueValidator(1)]
+        verbose_name="время", validators=[MinValueValidator(1, message = 'ппц')]
         ) 
     ingredient = models.ManyToManyField(
         Ingredient, through="Number", through_fields=("recipe", "ingredient"), 

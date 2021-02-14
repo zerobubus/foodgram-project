@@ -7,7 +7,7 @@
     </div>
     <div class="card-list card-list_column">
         <ul class="shopping-list">
-            {% for purchase in purchases%}
+            {% for purchase in purchases %}
             <li class="shopping-list__item" data-id={{ purchase.recipe.id }}>
                 <div class="recipe recipe_reverse">
                     {% load thumbnail %} {% thumbnail purchase.recipe.image "500x500" crop="center" upscale=True as im %}
@@ -21,9 +21,11 @@
 
             {% endfor %}
         </ul>
+        {% if purchases %}
         <a href="{% url 'download' %}">
             <button class="button button_style_blue">Скачать список</button>
         </a>
+        {% endif %}
 
 
     </div>

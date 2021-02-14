@@ -5,8 +5,10 @@
     <div class="single-card" data-id={{ recipe.id }} data-author={{ recipe.author }}>
         {% load thumbnail %} {% thumbnail recipe.image "600x600" as im %}
         <img class="single-card__image" src="{{ im.url }}" alt="{{ im.name }}"/> {% endthumbnail %}
-
+        
+        
         <div class="single-card__info">
+            {% if user.is_authenticated %} 
             {% if not favorite %}
             <div class="single-card__header-info">
                 <h1 class="single-card__title">{{ recipe.name }}</h1>
@@ -24,6 +26,7 @@
                 </div>
             </div>
             {% endif %}
+            {% endif %}
 
             <ul class="single-card__items">
                 {% for tag in tags %}
@@ -37,7 +40,7 @@
                 <p class="single-card__text"><span class="icon-time"></span> {{ recipe.time }} мин.</p>
                 <ul class="single-card__items">
                     <li class="single-card__item">
-                        <p class="single-card__text"><span class="icon-user"></span> {{ author }}</p>
+                        <p class="single-card__text"><span class="icon-user"></span> <a href="{% url 'profile' author.username %}" style="color: black">{{ author }}</a></p>
                     </li>
                     {% if user.is_authenticated %} {% if user == recipe.author %}
                     <li class="single-card__item"> <a style="margin-left: 2.5em" href="{% url 'recipe_edit' recipe.author.username recipe.id %}" class="single-card__text">Редактировать рецепт</a></li>
@@ -45,7 +48,9 @@
                 </ul>
             </div>
             <ul class="single-card__items">
-                {% include "includes/singlePage_purchase_follow.html" with purchase=purchase follow=follow %}
+                {% if user.is_authenticated %} 
+                {% include "includes/singlePage_purchase_follow.html" with purchase=purchase follow=follow author=author%}
+                {%endif%}
             </ul>
 
             <div class="single-card__section">
