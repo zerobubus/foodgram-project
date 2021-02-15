@@ -46,12 +46,18 @@ def tags_add(request, tag):
 @register.filter
 def tags_delete(request, tag):
     
-    list_tag =[v for k,v in request.GET.lists()]
-    if list_tag:
-        list_tag[0].remove(tag)
-        if len(list_tag[0])==2:
-            request = "tag=" +str(list_tag[0][0]) + "&tag=" +str(list_tag[0][1])
+    list_tag = request.GET.getlist("tag")
+    if tag in list_tag:
+        list_tag.remove(tag)
+        if len(list_tag)==1:
+            request = "tag=" +str(list_tag[0]) 
             return request 
-        elif len(list_tag[0])==1:
-            request = "tag=" +str(list_tag[0][0]) 
+        elif len(list_tag)==2:
+            request = "tag=" +str(list_tag[0]) + "&tag=" +str(list_tag[1])
+            return request
+        else:
+            request = ""
+            return request
+
+    return requesttag=" +str(list_tag[0][0]) 
             return request
