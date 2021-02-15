@@ -6,7 +6,7 @@ from .models import Favorite, Follow, Ingredient, Number, Purchase, Recipe, Tag
 class IngredientAdmin(admin.ModelAdmin):
     
     list_display = ("pk", "title", "dimension") 
-   
+    search_fields = ("title",) 
 
 class NumberAdmin(admin.ModelAdmin):
     
@@ -43,8 +43,8 @@ class IngredientInline(admin.TabularInline):
 class RecipeAdmin(admin.ModelAdmin):
     
     list_display = ("pk", "name", "pub_date", "author", "count_favor") 
-    search_fields = ("text",) 
-    list_filter = ("pub_date",) 
+    search_fields = ("tags__name",) 
+    list_filter = ("pub_date", "name", "tags", "ingredient") 
     empty_value_display = "-пусто-"
     inlines = [IngredientInline,]
 
@@ -62,3 +62,4 @@ admin.site.register(Favorite, FavoriteAdmin)
 admin.site.register(Purchase, PurchaseAdmin)
 admin.site.register(Follow, FollowAdmin)
 admin.site.register(Tag, TagAdmin)
+
